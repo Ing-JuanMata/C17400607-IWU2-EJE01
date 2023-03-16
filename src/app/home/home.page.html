@@ -1,11 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Productos </ion-title>
+    <ion-searchbar
+      placeholder="Categoria"
+      (ionChange)="onSearchChange($event)"
+      showCancelButton="focus"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let product of products">
+  <ion-card *ngFor="let product of filterProducts">
     <ion-card-header>
       <ion-card-subtitle>
         <ion-chip [color]="getColor(product.type)" outline="true">

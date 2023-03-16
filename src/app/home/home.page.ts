@@ -12,6 +12,8 @@ export class HomePage {
     { name: 'Croquetas 50kg', price: 400, type: 'Mascotas' },
   ];
 
+  public filterProducts = [...this.products];
+
   constructor() {}
 
   getColor(type: string): string {
@@ -25,5 +27,12 @@ export class HomePage {
       default:
         return 'primary';
     }
+  }
+
+  onSearchChange(event: any) {
+    this.filterProducts = this.products.filter((product) =>
+      product.type.toLowerCase().startsWith(event.detail.value.toLowerCase())
+    );
+    console.log(this.filterProducts);
   }
 }
