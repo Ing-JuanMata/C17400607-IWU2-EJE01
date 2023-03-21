@@ -33,6 +33,5 @@ export class HomePage {
     this.filterProducts = this.products.filter((product) =>
       product.type.toLowerCase().startsWith(event.detail.value.toLowerCase())
     );
-    console.log(this.filterProducts);
   }
 }
