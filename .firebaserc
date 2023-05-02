@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "c17400607-iwu2-eje01"
+  },
+  "targets": {
+    "c17400607-iwu2-eje01": {
+      "hosting": {
+        "app": [
+          "c17400607-iwu2-eje01"
+        ]
+      }
+    }
   }
 }

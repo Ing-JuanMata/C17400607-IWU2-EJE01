@@ -1,20 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Product } from '../interfaces/product';
+import { ProductService } from '../services/product.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  public products = [
-    { name: 'Producto 1', price: 20, type: 'Abarrotes' },
-    { name: 'Jabon Zote', price: 30, type: 'Limpieza' },
-    { name: 'Croquetas 50kg', price: 400, type: 'Mascotas' },
-  ];
+export class HomePage implements OnDestroy {
+  private products$: Subscription;
+  public products: Product[] = [];
 
   public filterProducts = [...this.products];
 
-  constructor() {}
+  constructor(private productService: ProductService) {
+    this.products$ = productService.getProducts().subscribe((products) => {
+      this.products = products;
+      this.filterProducts = [...this.products];
+    });
+  }
 
   getColor(type: string): string {
     switch (type) {
@@ -33,5 +38,9 @@ export class HomePage {
     this.filterProducts = this.products.filter((product) =>
       product.type.toLowerCase().startsWith(event.detail.value.toLowerCase())
     );
+  }
+
+  ngOnDestroy(): void {
+    this.products$.unsubscribe();
   }
 }
